@@ -3,4 +3,4 @@ pytest==7.1.1
 black==22.3.0
 panda
 numpy
-scikitlearn
+sklearn
