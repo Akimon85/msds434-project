@@ -4,3 +4,4 @@ black==22.3.0
 panda
 numpy
 scikitlearn
+seaborn
