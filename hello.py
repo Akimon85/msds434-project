@@ -3,4 +3,4 @@ def add(x, y):
 
 
 print(add(2, 2))
-print("This is my project.")
+print("This is my MSDS 434 project.")
