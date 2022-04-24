@@ -4,3 +4,5 @@ black==22.3.0
 panda
 numpy
 sklearn
+Flask
+gunicorn
