@@ -1,5 +1,5 @@
 #The official lightweight Python image from hub.docker.com
-FROM python:3.10-slim-buster
+FROM python:3.9-slim
 
 
 ENV PYTHONUNBUFFERED True
