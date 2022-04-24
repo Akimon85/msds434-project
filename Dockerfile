@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED True
 
 # Copy local code to the container image.
 COPY . /src
-WORKID /src
+WORKDIR /src
 
 
 
