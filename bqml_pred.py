@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 from google.cloud import bigquery
 
 app = Flask(__name__)
-app.route('/')
+@app.route('/')
 
 
 client = bigquery.Client()
