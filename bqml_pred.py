@@ -17,8 +17,10 @@ app = Flask(__name__)
 @app.route('/')
 
 def hello():
+
     dt_html = dataframe.describe().to_html()
-    resp = make_response(render_template_string(df_html)
+    resp = make_response(render_template_string(df_html))
+
     return resp
 
 if __name__ == "__bqml_pred__":
