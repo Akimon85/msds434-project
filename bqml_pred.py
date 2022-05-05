@@ -1,7 +1,7 @@
 #Module5
 import os
 import pandas
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response, render_template_string
 from google.cloud import bigquery
 
 client = bigquery.Client()
