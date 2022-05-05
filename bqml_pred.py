@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 def hello():
 
-    print(dataframe)
+    return dataframe
 
 if __name__ == "__bqml_pred__":
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
