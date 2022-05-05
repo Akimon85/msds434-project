@@ -10,7 +10,7 @@ client = bigquery.Client()
 query_job = client.query(
     """
     SELECT * 
-    FROM `msds434-project.ZenDesk.model_eval`
+    FROM `msds343-project.ZenDesk.model_eval`
     """
 )
 eval_results = query_job.result()
