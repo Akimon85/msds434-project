@@ -1,6 +1,7 @@
 #Module5
 import os
-import pandas as pd
+import pandas
+import pyarrow
 from flask import Flask, request, jsonify
 from google.cloud import bigquery
 
@@ -10,18 +11,14 @@ app.route('/')
 
 client = bigquery.Client()
 
-query_string = """
-SELECT * 
-FROM `msds343-project.ZenDesk.model_eval`
-"""
-
-dataframe = (
-    client.query(query_string)
-    .result()
-    .to_dataframe(
-        create_bqstorage_client=True,
-    )
+table = bigquery.TableReference.from_string(
+    "msds343-project.ZenDesk.model_eval"
 )
+rows = client.list_rows(
+    table,
+  )
+
+dataframe = rows.to_dataframe()
 
 def hello():
 
