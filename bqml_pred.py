@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 def hello():
 
-    dt_html = dataframe.describe().to_html()
+    df_html = dataframe.describe().to_html()
     resp = make_response(render_template_string(df_html))
 
     return resp
