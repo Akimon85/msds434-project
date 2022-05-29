@@ -23,6 +23,11 @@ job_config.source_format = bigquery.SourceFormat.CSV
 job_config.autodetect = True
 
 app = Flask(__name__)
+UPLOAD_FOLDER = 'static/files'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+
 @app.route('/')
 def index():
     return render_template('upload.html')
@@ -36,6 +41,7 @@ def uploadFiles():
         with open(file_path, "rb") as source_file:
             job = client.load_table_from_file(source_file, temp_table, job_config=job_config)
         job.result()
+        print("Loaded {} rows into {}:{}.")
 
     return redirect(url_for('index'))
 
