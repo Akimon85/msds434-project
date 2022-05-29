@@ -16,6 +16,9 @@ dataframe = rows.to_dataframe()
 app = Flask(__name__)
 @app.route('/')
 
+def home():
+    return "<h1>Akira Noda - MDSD434 - Customer Support Ticket Type Prediction</h1>"
+
 def hello():
 
     df_html = dataframe.describe().to_html()
