@@ -1,7 +1,8 @@
 #Module5
 import os
+from os.path import join, dirname, realpath
 import pandas
-from flask import Flask, request, jsonify, make_response, render_template_string
+from flask import Flask, request, jsonify, make_response, render_template_string, render_template, url_for, redirect
 from google.cloud import bigquery
 
 client = bigquery.Client()
@@ -15,9 +16,19 @@ dataframe = rows.to_dataframe()
 
 app = Flask(__name__)
 @app.route('/')
+def index():
+    return render_template('upload.html')
 
-def home():
-    return "<h1>Akira Noda - MDSD434 - Customer Support Ticket Type Prediction</h1>"
+@app.route('/', methods=['POST'])
+def uploadFiles():
+    uploaded_file = request.files['file']
+    if uploaded_file.filename !='':
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+        uploaded_file.save(file_path)
+    return redirect(url_for('index'))
+
+def main():
+    return "Akira Noda - MSDS434 Project - Customer Support Ticket Type Prediction"
 
 def hello():
 
