@@ -14,6 +14,14 @@ rows = client.list_rows(
   )
 dataframe = rows.to_dataframe()
 
+temp_table = bigquery.TableReference.from_string(
+    "msds343-project.ZenDesk.temp"
+)
+
+job_config = bigquery.LoadJobConfig()
+job_config.source_format = bigquery.SourceFormat.CSV
+job_config.autodetect = True
+
 app = Flask(__name__)
 @app.route('/')
 def index():
@@ -25,6 +33,10 @@ def uploadFiles():
     if uploaded_file.filename !='':
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
         uploaded_file.save(file_path)
+        with open(file_path, "rb") as source_file:
+            job = client.load_table_from_file(source_file, temp_table, job_config=job_config)
+        job.result()
+
     return redirect(url_for('index'))
 
 def main():
