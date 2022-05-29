@@ -36,9 +36,9 @@ def index():
 def uploadFiles():
     uploaded_file = request.files['file']
     if uploaded_file.filename !='':
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
-        uploaded_file.save(file_path)
-        with open(file_path, "rb") as source_file:
+        #file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+        #uploaded_file.save(uploaded_file.filename)
+        with open(uploaded_file, "rb") as source_file:
             job = client.load_table_from_file(source_file, temp_table, job_config=job_config)
         job.result()
         print("Loaded {} rows into {}:{}.")
