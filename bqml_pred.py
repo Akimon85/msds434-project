@@ -40,11 +40,15 @@ def uploadFiles():
     if uploaded_file.filename !='':
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
         uploaded_file.save(file_path)
+        test_df = pd.read_csv(file_path)
+        df_html = test_df.describe().to_html()
+        resp = make_response(render_template_string(df_html))
         with open(file_path, "rb") as source_file:
             job = client.load_table_from_file(source_file, temp_table, job_config=job_config)
         job.result()
 
-    return redirect(url_for('index'))
+    #return redirect(url_for('index'))
+    return resp
 
 
 
