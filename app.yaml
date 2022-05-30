@@ -1,7 +1,7 @@
 runtime: custom
 env: flex
 
-entrypoint: gunicorn -b :$PORT bqml_pred:app
+entrypoint: gunicorn -b :$PORT upload_test:app
 
 runtime_config:
   python_version: 3.9
