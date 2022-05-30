@@ -8,13 +8,16 @@ from flask import Flask, request, jsonify
 # load a toy dataset
 data = datasets.load_boston()
 boston_df = pd.DataFrame(data["data"], columns=data["feature_names"])
+boston_target = pd.DataFrame(data["target"], columns=data["feature_names"])
 
 # save as CSV
 boston_df.to_csv("boston.csv", index=False)
+boston_target.to_csv("target.csv", index=False)
 
 client = bigquery.Client(project="msds343-project")
 
 table_ref = client.dataset("ZenDesk").table("boston")
+table_ref2 = client.dataset("ZenDesk").table("boston_target")
 
 job_config = bigquery.LoadJobConfig()
 job_config.source_format = bigquery.SourceFormat.CSV
@@ -36,8 +39,12 @@ def hello():
         job = client.load_table_from_file(
         source_file, table_ref, job_config=job_config
     )
-
     # job is async operation so we have to wait for it to finish
+    job.result()
+    with open("target.csv", "rb") as source_file:
+        job = client.load_table_from_file(
+        source_file, table_ref, job_config=job_config
+    )
     job.result()
 
 if __name__ == "__main__":
