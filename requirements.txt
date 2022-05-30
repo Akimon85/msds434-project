@@ -8,3 +8,4 @@ Flask
 gunicorn
 google-cloud-bigquery
 google-cloud-bigquery-storage
+sklearn
