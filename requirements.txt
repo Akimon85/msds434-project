@@ -2,10 +2,19 @@ pylint==2.13.5
 pytest==7.1.1
 black==22.3.0
 pyarrow
-pandas
 db-dtypes
 Flask
 gunicorn
 google-cloud-bigquery
 google-cloud-bigquery-storage
 sklearn
+## for application
+dash==1.20.0
+dash-bootstrap-components==0.12.2
+## to produce random data
+names==0.3.0
+## for data processing
+numpy==1.19.5
+pandas==1.1.5
+## for plotting
+plotly==4.14.3
