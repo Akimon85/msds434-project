@@ -20,12 +20,12 @@ boston_target = pd.DataFrame(data["target"])
 boston_df.to_csv("boston.csv", index=False)
 boston_target.to_csv("target.csv", index=False)
 
-client = bigquery.Client(project="msds343-project")
-table_ref = client.dataset("ZenDesk").table("boston")
-job_config = bigquery.LoadJobConfig()
-job_config.source_format = bigquery.SourceFormat.CSV
-job_config.skip_leading_rows = 1 # ignore the header
-job_config.autodetect = True
+#client = bigquery.Client(project="msds343-project")
+#table_ref = client.dataset("ZenDesk").table("boston")
+#job_config = bigquery.LoadJobConfig()
+#job_config.source_format = bigquery.SourceFormat.CSV
+#job_config.skip_leading_rows = 1 # ignore the header
+#job_config.autodetect = True
 
 theme = dbc.themes.LUX
 css = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
