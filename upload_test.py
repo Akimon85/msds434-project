@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify
 # load a toy dataset
 data = datasets.load_boston()
 boston_df = pd.DataFrame(data["data"], columns=data["feature_names"])
-boston_target = pd.DataFrame(data["target"], columns=data["feature_names"])
+boston_target = pd.DataFrame(data["target"])
 
 # save as CSV
 boston_df.to_csv("boston.csv", index=False)
