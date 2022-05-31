@@ -14,7 +14,7 @@ dash-bootstrap-components==0.12.2
 ## to produce random data
 names==0.3.0
 ## for data processing
-numpy==1.19.5
+numpy==1.22.4
 pandas==1.1.5
 ## for plotting
 plotly==4.14.3

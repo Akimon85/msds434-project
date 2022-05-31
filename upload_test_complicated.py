@@ -9,7 +9,6 @@ from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from settings import config
 
 # load a toy dataset
 data = datasets.load_boston()
@@ -86,9 +85,9 @@ body = dbc.Row([
         ])
 ])
 # Callbacks
-#@app.callback()
-#def function():
-#    return 0
+@app.callback()
+def function():
+    return 0
 ########################## App Layout ##########################
 app.layout = dbc.Container(fluid=True, children=[
     html.H1("name", id="nav-pills"),
@@ -99,14 +98,14 @@ app.layout = dbc.Container(fluid=True, children=[
     ),
     dcc.Graph(
             figure={
-                "boston_df": [
+                "data": [
                     {
-                        "x": data["CRIM"],
-                        "y": data["B"],
+                        "x": data["Date"],
+                        "y": data["AveragePrice"],
                         "type": "lines",
                     },
                 ],
-                "layout": {"title": "Crime Rate vs AA"},
+                "layout": {"title": "Average Price of Avocados"},
             },
         ),
     html.Br(),html.Br(),html.Br(),
