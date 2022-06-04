@@ -305,37 +305,38 @@ app.layout = html.Div(
     [Input('opt', 'value')]
      )
 def update_figure(X):
-    dff = data.copy()
-    df_trans = dff[dff['Transported']==1][[X,'Transported']]
-    df_not = dff[dff['Transported']==0][[X, 'Transported']].rename(columns={'Transported':'Not Transported'})
-    df_trans = df_trans[X].value_counts()
-    df_trans = pd.DataFrame(df_trans).reset_index().rename(columns={'index':'Transported'})
-    df_not = df_not[X].value_counts()
-    df_not = pd.DataFrame(df_not).reset_index().rename(columns={'index':'Not Transported'})
-    df_not['x_final'] = df_not[X]
-    df_not[X] *= -1
-    counts = df_not['x_final'].tolist() + df_trans[X].tolist()
-    end = max(counts)
-    fig3a = make_subplots(rows=1, cols=2, specs=[[{}, {}]], shared_yaxes=True, horizontal_spacing=0)
-    fig3a.append_trace(go.Bar(x=df_not[X], y=df_not["Not Transported"], orientation='h', showlegend=True, text= df_not['x_final'], name='Not Transported'),1,1)
-    fig3a.append_trace(go.Bar(x=df_trans[X], y=df_trans["Transported"], orientation='h', showlegend=True, text= df_trans[X], name='Transported'),1,2)
-    fig3a.update_xaxes(showgrid=False, range=[end*-1,0],row=1,col=1)
-    fig3a.update_xaxes(showgrid=False, range=[0,end],row=1,col=2)
-    fig3a.update_yaxes(showgrid=False, categoryorder='total ascending', 
-                     ticksuffix=' ', showline=False)
-    fig3a.update_traces(hovertemplate=None)
-    fig3a.update_layout(
-        title = "Number of Passengers Transported To Another Dimension",
-        title_x = 0.5,
-        plot_bgcolor=colors['background'],
-        paper_bgcolor=colors['background'],
-        font_color=colors['text'],
-        hovermode="y unified", 
-        xaxis_title=" ", yaxis_title=X,
-        legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="center", x=0.5),
-        width=1000, height=360)
-    fig = go.Figure(data=fig3a)
-    return fig
+                
+        dff = data.copy()
+        df_trans = dff[dff['Transported']==1][[X,'Transported']]
+        df_not = dff[dff['Transported']==0][[X, 'Transported']].rename(columns={'Transported':'Not Transported'})
+        df_trans = df_trans[X].value_counts()
+        df_trans = pd.DataFrame(df_trans).reset_index().rename(columns={'index':'Transported'})
+        df_not = df_not[X].value_counts()
+        df_not = pd.DataFrame(df_not).reset_index().rename(columns={'index':'Not Transported'})
+        df_not['x_final'] = df_not[X]
+        df_not[X] *= -1
+        counts = df_not['x_final'].tolist() + df_trans[X].tolist()
+        end = max(counts)
+        fig3a = make_subplots(rows=1, cols=2, specs=[[{}, {}]], shared_yaxes=True, horizontal_spacing=0)
+        fig3a.append_trace(go.Bar(x=df_not[X], y=df_not["Not Transported"], orientation='h', showlegend=True, text= df_not['x_final'], name='Not Transported'),1,1)
+        fig3a.append_trace(go.Bar(x=df_trans[X], y=df_trans["Transported"], orientation='h', showlegend=True, text= df_trans[X], name='Transported'),1,2)
+        fig3a.update_xaxes(showgrid=False, range=[end*-1,0],row=1,col=1)
+        fig3a.update_xaxes(showgrid=False, range=[0,end],row=1,col=2)
+        fig3a.update_yaxes(showgrid=False, categoryorder='total ascending', 
+                         ticksuffix=' ', showline=False)
+        fig3a.update_traces(hovertemplate=None)
+        fig3a.update_layout(
+            title = "Number of Passengers Transported To Another Dimension",
+            title_x = 0.5,
+            plot_bgcolor=colors['background'],
+            paper_bgcolor=colors['background'],
+            font_color=colors['text'],
+            hovermode="y unified", 
+            xaxis_title=" ", yaxis_title=X,
+            legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="center", x=0.5),
+            width=1000, height=360)
+        fig = go.Figure(data=fig3a)
+        return fig
 
 
 # In[34]:
