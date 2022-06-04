@@ -74,7 +74,7 @@ opts = [{'label':i, 'value':i} for i in features]
 
 
 #save data to BigQuery and Run ML
-client = bigquery.Client(credentials=credentials, project="msds343-project")
+client = bigquery.Client(project="msds343-project")
 table_ref = client.dataset("ZenDesk").table("final")
 table_ref2 = client.dataset("ZenDesk").table("test")
 
