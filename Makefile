@@ -6,7 +6,7 @@ test:
 	python -m pytest -vv test_hello.py
 
 test2:
-	python -m pytest -vv main_fin.py
+	python -m pytest -vv main.py
 
 format:
 	black *.py
