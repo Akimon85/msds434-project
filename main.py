@@ -159,6 +159,7 @@ kaggle_score = "Kaggle Submission Score = 0.73322"
 
 #Setup dash app
 app = dash.Dash(__name__)
+server = app.server
 
 colors = {
     'background': '#111111',
@@ -346,10 +347,10 @@ def update_figure(X):
         return fig
 
 
-#if __name__ == '__main__':
-#    app.run_server(debug=True, host="0.0.0.0", port=8080)
+if __name__ == '__main__':
+    app.run_server(debug=True, host="0.0.0.0", port=8080)
 
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     #app.run_server(debug=False)
-    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+ #   app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
