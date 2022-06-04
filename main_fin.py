@@ -29,11 +29,12 @@ from sklearn.preprocessing import LabelEncoder
 
 from google.oauth2 import service_account
 from google.cloud import bigquery
-key_path = "msds343-project-03476f47763b.json"
-credentials = service_account.Credentials.from_service_account_file(
-    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],
+#key_path = "msds343-project-03476f47763b.json"
+#credentials = service_account.Credentials.from_service_account_file(
+#    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],
 )
-#get kaggle api token from GCP
+######get kaggle api token from GCP
+#secrets = secretmanager.SecretManagerServiceClient(credentials=credentials)
 secrets = secretmanager.SecretManagerServiceClient(credentials=credentials)
 KAGGLE_TOKE = secrets.access_secret_version(request={"name":"projects/msds343-project/secrets/kaggle/versions/1"}).payload.data.decode("utf-8")
 os.makedirs("~/.kaggle/")
