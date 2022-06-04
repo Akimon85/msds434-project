@@ -12,9 +12,8 @@ COPY . main.py /app/
 COPY . train.csv /app/
 COPY . test.csv /app/
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-EXPOSE 8080
-#CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
-CMD [ "main.py" ]
-ENTRYPOINT [ "python" ]
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
+
+#ENTRYPOINT [ "python" ]
