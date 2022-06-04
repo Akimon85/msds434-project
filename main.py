@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[9]:
-
-
 import pandas as pd
 from sklearn import datasets
 import numpy as np
@@ -145,7 +139,6 @@ kaggle_score = "Kaggle Submission Score = 0.73322"
 
 #Setup dash app
 app = dash.Dash(__name__)
-server = app.server
 
 colors = {
     'background': '#111111',
@@ -160,7 +153,6 @@ fig = px.histogram(data_frame = data,
                    nbins= 100,
                    width=1000, height=360,
                 )
-
 fig.update_layout(
     title = "Distribution of Passenger Age",
     title_x = 0.5,
@@ -168,16 +160,6 @@ fig.update_layout(
     paper_bgcolor=colors['background'],
     font_color=colors['text']
 )
-
-
-# decks = data[~data['Deck'].isnull()].sort_values(by="Deck")
-# col_options = [dict(label=x, value=x) for x in decks['Deck'].unique()]
-# df_deck = data.loc[~data['Cabin'].isnull()]
-# df_deck['side_x'] = df_deck['Side'].map({"P":"-1","S":"1"})
-# df_deck['side_xx'] = np.log10(df_deck['Num'].astype(int))*df_deck['side_x'].astype(int)
-
-# In[25]:
-
 
 #3D Scatter Plot Of Passenger Location
 data['side_x'] = data['Side'].map({"P":"-1","S":"1"})
@@ -230,10 +212,6 @@ df_not['CryoSleep'] *= -1
 counts = df_not['CryoSleep_final'].tolist() + df_trans['CryoSleep'].tolist()
 end = max(counts)
 
-
-# In[27]:
-
-
 #Bar Chart
 fig3 = make_subplots(rows=1, cols=2, specs=[[{}, {}]], shared_yaxes=True, horizontal_spacing=0)
 fig3.append_trace(go.Bar(x=df_not["CryoSleep"], y=df_not["Not Transported"], orientation='h', showlegend=True, text= df_not['CryoSleep_final'], name='Not Transported'),1,1)
@@ -254,10 +232,6 @@ fig3.update_layout(
     legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="center", x=0.5),
     width=1000, height=360,
 )
-
-
-# In[32]:
-
 
 app.layout = html.Div(
             children=[
@@ -322,12 +296,11 @@ def update_figure(X):
         return fig
 
 
-#if __name__ == '__main__':
-#    app.run_server(debug=True, host='0.0.0.0', port=8080)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
     
-    #app.run_server(debug=False)
 
+
+#if __name__ == '__main__':
+#    app.run_server(debug=True, host='0.0.0.0', port=8080)
+#    app.run_server(debug=False)      
