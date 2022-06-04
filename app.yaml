@@ -1,9 +1,8 @@
-service: default
-runtime: custom
+#service: default
+runtime: python
 env: flex
-
-#entrypoint: gunicorn -b :$PORT main:app
-entrypoint: gunicorn -b 0.0.0.0:8080 main:server
+entrypoint: gunicorn -b :$PORT main:app
+#entrypoint: gunicorn -b 0.0.0.0:8080 main:server
 
 #env_variables:
 #  KAGGLE_USERNAME: "akiman85"
