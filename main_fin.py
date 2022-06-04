@@ -45,7 +45,7 @@ from google.cloud import bigquery
 #file.close()
 
 #download data
-get_ipython().system('kaggle competitions download -c spaceship-titanic')
+!kaggle competitions download -c 'spaceship-titanic'
 import shutil
 shutil.unpack_archive('spaceship-titanic.zip', '.')
 data = pd.read_csv('train.csv')
