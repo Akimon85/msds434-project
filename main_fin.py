@@ -36,10 +36,13 @@ from google.cloud import bigquery
 #secrets = secretmanager.SecretManagerServiceClient(credentials=credentials)
 secrets = secretmanager.SecretManagerServiceClient(credentials=credentials)
 KAGGLE_TOKE = secrets.access_secret_version(request={"name":"projects/msds343-project/secrets/kaggle/versions/1"}).payload.data.decode("utf-8")
-os.makedirs("~/.kaggle/")
-file = open('~/.kaggle/kaggle.json',"w")
-file.write(KAGGLE_TOKE)
-file.close()
+json_object = json.loads(KAGGLE_TOKE)
+%env KAGGLE_USERNAME=json_object["username"]
+%env KAGGLE_KEY=json_object["key"]
+#os.makedirs("~/.kaggle/")
+#file = open('~/.kaggle/kaggle.json',"w")
+#file.write(KAGGLE_TOKE)
+#file.close()
 
 #download data
 get_ipython().system('kaggle competitions download -c spaceship-titanic')
