@@ -31,8 +31,7 @@ from google.oauth2 import service_account
 from google.cloud import bigquery
 #key_path = "msds343-project-03476f47763b.json"
 #credentials = service_account.Credentials.from_service_account_file(
-#    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],
-)
+#    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],)
 ######get kaggle api token from GCP
 #secrets = secretmanager.SecretManagerServiceClient(credentials=credentials)
 secrets = secretmanager.SecretManagerServiceClient(credentials=credentials)
