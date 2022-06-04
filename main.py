@@ -89,12 +89,14 @@ client.load_table_from_dataframe(data, table_ref, job_config).result()
 client.load_table_from_dataframe(test, table_ref2, job_config).result()
 
 #%load_ext google.cloud.bigquery
+'''
 query_job = client.query("""
     CREATE OR REPLACE MODEL `msds343-project.ZenDesk.final_model`
         OPTIONS(model_type='logistic_reg',labels=['Transported']) AS
     SELECT * FROM `msds343-project.ZenDesk.final`
     """)
 query_job.result()
+
 
 training_info = """
 SELECT
@@ -109,7 +111,7 @@ FROM
 ORDER BY iteration ASC
 """
 training = client.query(training_info).to_dataframe()
-
+'''
 eval_info = """
     SELECT *
     FROM ML.EVALUATE(MODEL `msds343-project.ZenDesk.final_model`,
@@ -278,16 +280,9 @@ app.layout = html.Div(
                 ]),
                 html.P(children="BigQueryML - Classification Model Evaluation"),
                 dash_table.DataTable(eval_info.to_dict('records'), [{"name": i, "id": i} for i in eval_info.columns]),
-                html.P(children=[html.H2('kaggle_score')])
+                html.P(children=[html.H2(kaggle_score)])
             ])
    
-
-                
-
-
-# In[33]:
-
-
 @app.callback(
     Output('bar', 'figure'), 
     [Input('opt', 'value')]
@@ -331,8 +326,8 @@ def update_figure(X):
 #    app.run_server(debug=True, host='0.0.0.0', port=8080)
 
 
-#if __name__ == "__main__":
-#    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+if __name__ == "__main__":
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
     
     #app.run_server(debug=False)
 
