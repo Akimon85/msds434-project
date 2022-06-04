@@ -4,8 +4,8 @@ env: flex
 entrypoint: gunicorn -b :$PORT main_fin:app
 
 env_variables:
-  KAGGLE_USERNAME="akiman85"
-  KAGGLE_KEY="95f393a1d2bd0d64736af7df42d0cc86"
+  KAGGLE_USERNAME: "akiman85"
+  KAGGLE_KEY: "95f393a1d2bd0d64736af7df42d0cc86"
   
 runtime_config:
   python_version: 3.9
