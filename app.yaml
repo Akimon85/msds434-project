@@ -1,7 +1,7 @@
 runtime: custom
 env: flex
 
-entrypoint: gunicorn -b :$PORT main_fin:app
+entrypoint: gunicorn -b :$PORT main:app
 
 env_variables:
   KAGGLE_USERNAME: "akiman85"
