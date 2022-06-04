@@ -34,9 +34,9 @@ from google.cloud import bigquery
 #    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],)
 ######get kaggle api token from GCP
 #secrets = secretmanager.SecretManagerServiceClient(credentials=credentials)
-secrets = secretmanager.SecretManagerServiceClient()
-KAGGLE_TOKE = secrets.access_secret_version(request={"name":"projects/msds343-project/secrets/kaggle/versions/1"}).payload.data.decode("utf-8")
-json_object = json.loads(KAGGLE_TOKE)
+#secrets = secretmanager.SecretManagerServiceClient()
+#KAGGLE_TOKE = secrets.access_secret_version(request={"name":"projects/msds343-project/secrets/kaggle/versions/1"}).payload.data.decode("utf-8")
+#json_object = json.loads(KAGGLE_TOKE)
 #%env KAGGLE_USERNAME=json_object["username"]
 #%env KAGGLE_KEY=json_object["key"]
 #os.makedirs("~/.kaggle/")
