@@ -88,25 +88,13 @@ job_config.autodetect = True
 client.load_table_from_dataframe(data, table_ref, job_config).result()
 client.load_table_from_dataframe(test, table_ref2, job_config).result()
 
-
-
-
-
 #%load_ext google.cloud.bigquery
-
-
-
-
 query_job = client.query("""
     CREATE OR REPLACE MODEL `msds343-project.ZenDesk.final_model`
         OPTIONS(model_type='logistic_reg',labels=['Transported']) AS
     SELECT * FROM `msds343-project.ZenDesk.final`
     """)
 query_job.result()
-
-
-# In[3]:
-
 
 training_info = """
 SELECT
@@ -121,10 +109,6 @@ FROM
 ORDER BY iteration ASC
 """
 training = client.query(training_info).to_dataframe()
-
-
-# In[31]:
-
 
 eval_info = """
     SELECT *
@@ -159,16 +143,12 @@ kaggle_score = "Kaggle Submission Score = 0.73322"
 
 #Setup dash app
 app = dash.Dash(__name__)
-
+server = app.server
 
 colors = {
     'background': '#111111',
     'text': '#7FDBFF'
 }
-
-
-# In[24]:
-
 
 #Histogram of Age Distribution
 fig = px.histogram(data_frame = data, 
@@ -347,12 +327,12 @@ def update_figure(X):
         return fig
 
 
-#if __name__ == '__main__':
-#    app.run_server(debug=True, host="0.0.0.0", port=8080)
+if __name__ == '__main__':
+    app.run_server(debug=True, host="0.0.0.0", port=8080)
 
 
-if __name__ == "__main__":
-    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+#if __name__ == "__main__":
+ #   app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
     
     #app.run_server(debug=False)
 
