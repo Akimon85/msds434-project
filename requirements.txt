@@ -10,6 +10,7 @@ google-cloud-bigquery-storage
 google-cloud-secret-manager
 sklearn
 dash
+dash-bootstrap-components
 names==0.3.0
 pandas==1.4.2
 numpy==1.22.4
