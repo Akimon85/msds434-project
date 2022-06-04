@@ -12,7 +12,7 @@ entrypoint: gunicorn -b 0.0.0.0:8080 main:server
 runtime_config:
   python_version: 3.9
 
-#automatic_scaling:
-#  min_num_instances: 1
-#  max_num_instances: 8
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 8
 
