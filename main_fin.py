@@ -24,7 +24,7 @@ from google.cloud import secretmanager
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
-
+from kaggle.api.kaggle_api_extended import KaggleApi
 #print('\n'.join(f'{m.__name__}=={m.__version__}' for m in globals().values() if getattr(m, '__version__', None)))
 
 from google.oauth2 import service_account
@@ -45,7 +45,10 @@ from google.cloud import bigquery
 #file.close()
 
 #download data
-!kaggle competitions download -c 'spaceship-titanic'
+api = KaggleApi()
+#api.authenticate()
+api.competition_download_files('spaceship-titanic', path='./')
+#!kaggle competitions download -c 'spaceship-titanic'
 import shutil
 shutil.unpack_archive('spaceship-titanic.zip', '.')
 data = pd.read_csv('train.csv')
