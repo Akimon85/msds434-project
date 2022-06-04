@@ -45,12 +45,12 @@ from google.cloud import bigquery
 #file.close()
 
 #download data
-api = KaggleApi()
+#api = KaggleApi()
 #api.authenticate()
-api.competition_download_files('spaceship-titanic', path='./')
+#api.competition_download_files('spaceship-titanic', path='./')
 #!kaggle competitions download -c 'spaceship-titanic'
-import shutil
-shutil.unpack_archive('spaceship-titanic.zip', '.')
+#import shutil
+#shutil.unpack_archive('spaceship-titanic.zip', '.')
 data = pd.read_csv('train.csv')
 test = pd.read_csv('test.csv')
 
