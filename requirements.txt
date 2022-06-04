@@ -11,8 +11,6 @@ google-cloud-secret-manager
 sklearn
 ## for application
 dash
-dash.dash_table==5.1.2
-dash_bootstrap_components==1.1.0
 names==0.3.0
 pandas==1.4.2
 numpy==1.22.4
