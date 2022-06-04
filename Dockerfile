@@ -9,6 +9,8 @@ FROM python:3.9-slim
 #COPY . /src
 WORKDIR /app
 COPY . main.py /app/
+COPY . train.csv /app/
+COPY . test.csv /app/
 
 RUN pip install --no-cache-dir -r requirements.txt
 
