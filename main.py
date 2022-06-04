@@ -327,12 +327,12 @@ def update_figure(X):
         return fig
 
 
-if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0', port=8080)
+#if __name__ == '__main__':
+#    app.run_server(debug=True, host='0.0.0.0', port=8080)
 
 
 #if __name__ == "__main__":
- #   app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+#    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
     
     #app.run_server(debug=False)
 
