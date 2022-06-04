@@ -346,9 +346,10 @@ def update_figure(X):
         return fig
 
 
-# In[34]:
+if __name__ == '__main__':
+    app.run_server(debug=True, host="0.0.0.0", port=8080)
 
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     #app.run_server(debug=False)
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    #app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
