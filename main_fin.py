@@ -291,8 +291,9 @@ app.layout = html.Div(
                 ]),
                 html.P(children="BigQueryML - Classification Model Evaluation"),
                 dash_table.DataTable(eval_info.to_dict('records'), [{"name": i, "id": i} for i in eval_info.columns]),
-                html.P(children=[html.H2('kaggle_score')
+                html.P(children=[html.H2('kaggle_score')])
             ])
+   
 
                 
 
