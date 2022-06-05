@@ -70,7 +70,7 @@ opts = [{'label':i, 'value':i} for i in features]
 
 #save data to BigQuery and Run ML
 client = bigquery.Client(project="msds343-project")
-
+'''
 table_ref = client.dataset("ZenDesk").table("final")
 table_ref2 = client.dataset("ZenDesk").table("test")
 
@@ -104,7 +104,7 @@ FROM
 ORDER BY iteration ASC
 """
 training = client.query(training_info).to_dataframe()
-
+'''
 eval_model = """
     SELECT *
     FROM ML.EVALUATE(MODEL `msds343-project.ZenDesk.final_model`,
