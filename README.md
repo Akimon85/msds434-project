@@ -18,7 +18,7 @@ The app is currently deployed at https://msds343-project.uw.r.appspot.com/
 ![Slide1](https://user-images.githubusercontent.com/103208143/172032753-2421dbfd-ecac-4a04-aba4-522c55bd4ce6.JPG)
 
 ### **Source Code**
-The source code for this project was written using Google Shell Editor, JupyterLab, and stored in GitHub repo https://github.com/Akimon85/msds434-project. GitHub Actions was used to run tests using pytest and pylint automatically when new code is pushed to the repo. The contents of the repo is pushed to Google Cloud Platform (GCP) as a docker container for deployment. This setup allows developers to test various aspects the source code for formatting issues, package dependency issues, and other bugs quickly and automatically whenever there is a new commit without having to manually create a virtual test enviornment locally or pushing the code to GCP.
+The source code for this project was written using Google Shell Editor, JupyterLab, and stored in GitHub repo https://github.com/Akimon85/msds434-project. GitHub Actions was used to run tests using pytest and pylint automatically when new code is pushed to the repo. The contents of the repo is pushed to Google Cloud Platform (GCP) as a docker container for deployment. This setup allows developers to test various aspects the source code for formatting issues, package dependency issues, and other bugs quickly and automatically whenever there is a new commit. This increases efficiency significanty by eliminating the need to manually create a virtual test environment locally each time.
 
 Github actions workflow config file:
 ```python
