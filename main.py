@@ -1,5 +1,4 @@
 import pandas as pd
-from sklearn import datasets
 import numpy as np
 import os
 #from flask import Flask, request, jsonify
@@ -13,7 +12,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 #import opendatasets as od
 import plotly.graph_objects as go
-import json, urllib
+#import json, urllib
 from google.cloud import secretmanager
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score
@@ -116,7 +115,8 @@ eval_model = """
       SELECT *
       FROM `msds343-project.ZenDesk.final`
       ))"""
-eval_info = client.query(eval_model).to_dataframe()
+temp = client.query(eval_model).to_dataframe()
+eval_info = temp.copy()
 
 pred = """
 SELECT *
@@ -125,14 +125,19 @@ FROM ML.PREDICT(MODEL `msds343-project.ZenDesk.final_model`,
   SELECT *
   FROM `msds343-project.ZenDesk.test`
     ))"""
-predictions = client.query(pred).to_dataframe()
+temp = client.query(pred).to_dataframe()
+predictions = temp.copy()
+lst = [temp]
+del temp
+del lst
 
+'''
 score = [d[0].get('prob') for d in predictions.predicted_Transported_probs]
 
 sub = predictions[['PassengerId','predicted_Transported']].rename(
     columns={'predicted_Transported':'Transported'})
 #sub.to_csv('submission.csv',index=False)
-
+'''
 
 #submit predictions to kaggle
 #get_ipython().system('kaggle competitions submit -c spaceship-titanic -f submission.csv -m Sub1')
