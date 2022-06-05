@@ -31,6 +31,30 @@ EXPOSE 8080
 ENTRYPOINT [ "python" ]
 CMD [ "main.py" ]
 ```
+The "Makefile" contains code needed to create virtual envirnment and install of the packages as specified in "requirements.txt".
+
+```python
+pylint==2.13.5
+pytest==7.1.1
+black==22.3.0
+pyarrow
+db-dtypes
+Flask
+gunicorn
+google-cloud-bigquery
+google-cloud-bigquery-storage
+google-cloud-secret-manager
+sklearn
+dash==2.4.1
+dash-bootstrap-components==1.1.0
+names==0.3.0
+pandas==1.4.2
+numpy==1.22.4
+plotly==5.8.0
+Werkzeug==2.0.3
+kaggle
+```
+
 ### **Data**
 The dataset used for the ML portion of this project was from Kaggle's Spaceship Titanic Competiton, in which you are tasked with predicting which passengers were transported to another dimension when "the unwary Spaceship Titanic collided with a spacetime anomaly hidden within a dust cloud". The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication, then it downloads the dataset from Kaggle servers. The data is cleaned using python pandas & scikit-learn modules and then imported into Google BigQuery tables via google-bigquery API.
 ```python
