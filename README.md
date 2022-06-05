@@ -1,9 +1,9 @@
 ### Northwestern MSDS434 - Analytics Application Engineering - Term Project
 ### Akira Noda - Spring 2022
 
-This project was created to demonstrate proficiency with creating and deploying machine learning applications in the cloud. The program was written primarily in python and does the following:
+This project was created to demonstrate proficiency with creating and deploying machine learning applications in the cloud. The program was written primarily in python and peforms the following tasks:
 
-1.Retrieve a dataset from Kaggled servers, processes it in python, and uploads it to Google BigQuery.
+1.Retrieve a dataset from competition dataset from Kaggle servers, processes it in python, and uploads it to Google BigQuery.
 
 2.Trains and evaluate a logistic regression classification model using Google BigQuery ML and make predications.
 
