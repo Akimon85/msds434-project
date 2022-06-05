@@ -1,5 +1,5 @@
-# Northwestern MSDS434 - Akira Noda
-# Analytics Application Engineering- Term Project - June 2022
+# Northwestern MSDS434 - Analytics Application Engineering - Term Project
+# Akira Noda - Spring 2022
 
 This project was created to demonstrate proficiency with creating and deploying machine learning applications in the cloud. The program was written primarily in python and does the following:
 
