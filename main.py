@@ -106,14 +106,15 @@ ORDER BY iteration ASC
 """
 training = client.query(training_info).to_dataframe()
 '''
-eval_info = """
+eval_model = """
     SELECT *
     FROM ML.EVALUATE(MODEL `msds343-project.ZenDesk.final_model`,
       (
       SELECT *
       FROM `msds343-project.ZenDesk.final`
       ))"""
-eval_info = client.query(eval_info).to_dataframe()
+eval_model = client.query(eval_info).to_dataframe()
+eval_info = eval_model.copy()
 
 pred = """
 SELECT *
@@ -243,7 +244,7 @@ app.layout = html.Div(
                     html.Label("Choose a feature"),
                     dcc.Dropdown(id = 'opt',
                                  options = opts,
-                                 value = opts[0])
+                                 value = opts[0][‘value’])
                     ], style = {'width': '400px',
                                 'fontSize' : '20px',
                                 'padding-left' : '100px',
