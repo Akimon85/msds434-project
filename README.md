@@ -24,8 +24,8 @@ The application does the following:
 
 9.Generate an interactive dashboard showing using plotly.dash and deploy app to the web.
 
+![Slide1](https://user-images.githubusercontent.com/103208143/172032753-2421dbfd-ecac-4a04-aba4-522c55bd4ce6.JPG)
 
-![Slide1](https://user-images.githubusercontent.com/103208143/172032455-8340a1c1-7ae4-471a-a293-5507a373ad13.JPG)
 
 
 
