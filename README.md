@@ -24,6 +24,8 @@ The application does the following:
 
 9.Generate an interactive dashboard application using plotly.dash and deploy to the web via Google App Engine.
 
+### **Architecture Diagram**
+
 ![Slide1](https://user-images.githubusercontent.com/103208143/172032753-2421dbfd-ecac-4a04-aba4-522c55bd4ce6.JPG)
 
 
