@@ -149,7 +149,9 @@ predictions = temp.copy()
 
 ```
 ### **Dashboard Application Deployment**
-An interactive dashboard using various visualizations and prediction results were generated using plotly dash, and can be deployed with local host or on the web via Google Cloud Build & App Engine.Separate GCP projects were created as development and production environments, linked to two branches of the GitHub source code repo.
+An interactive dashboard using various visualizations and prediction results were generated using plotly dash, and can be deployed with local host or on the web via Google Cloud Build & App Engine. The dashboard allows the end user to explore the data provided and review BigQueryML model metrics, predictions, and prediction accuracy.
+
+Separate GCP projects were created as development and production environments, linked to two branches of the GitHub source code repo.
 
 *Note - The app config file must specify that a "FG_1G" GCP compute instance class is used to deploy the app. Otherwise, the default instance clas will be automatically provisioned, which does not contain enough memory for the app to run properly will either errors during app deployment or cause silent errors in the background that will prevent the web app from loading properly in a browser.
 ```python
