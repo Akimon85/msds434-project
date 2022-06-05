@@ -4,7 +4,6 @@
 This project was created to demonstrate proficiency with creating and deploying analytics applications in the cloud.
 
 
-
 The application does the following:
 
 1.Retrieve unpack files from a Kaggle competition dataset from kaggle servers via kaggle api.
@@ -24,3 +23,11 @@ The application does the following:
 8.Submit predictions to kaggle competition and retrieve submission score via kaggle api.
 
 9.Generate an interactive dashboard showing using plotly.dash and deploy app to the web.
+
+
+![Slide1](https://user-images.githubusercontent.com/103208143/172032455-8340a1c1-7ae4-471a-a293-5507a373ad13.JPG)
+
+
+
+
+
