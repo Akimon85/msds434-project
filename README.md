@@ -20,11 +20,14 @@ The application does the following:
 
 8.Generate an interactive dashboard application using plotly.dash and deploy to the web via Google App Engine.
 
+The app is currently deployed at https://msds343-project.uw.r.appspot.com/
+
 ### **Architecture Diagram**
 
 ![Slide1](https://user-images.githubusercontent.com/103208143/172032753-2421dbfd-ecac-4a04-aba4-522c55bd4ce6.JPG)
 
-
+## Source Code & CI/CD
+The source code for this project was written using Google Shell Editor, JupyterLab, and stored in GitHub repo https://github.com/Akimon85/msds434-project. GitHub Actions was used to run tests automatically at commits. 
 
 
 
