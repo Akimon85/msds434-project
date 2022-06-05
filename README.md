@@ -18,7 +18,7 @@ The app is currently deployed at https://msds343-project.uw.r.appspot.com/
 ![Slide1](https://user-images.githubusercontent.com/103208143/172032753-2421dbfd-ecac-4a04-aba4-522c55bd4ce6.JPG)
 
 ### **Source Code**
-The source code for this project was written using Google Shell Editor, JupyterLab, and stored in GitHub repo https://github.com/Akimon85/msds434-project. GitHub Actions was used to run tests using pytest and pylint automatically when new code is pushed to the repo. The contents of the repo is pushed to Google Cloud Platform (GCP) as a docker container for deployment.
+The source code for this project was written using Google Shell Editor, JupyterLab, and stored in GitHub repo https://github.com/Akimon85/msds434-project. GitHub Actions was used to run tests using pytest and pylint automatically when new code is pushed to the repo. The contents of the repo is pushed to Google Cloud Platform (GCP) as a docker container for deployment. This setup allows developers to test various aspects the source code for formatting issues, package dependency issues, and other bugs quickly and automatically whenever there is a new commit without having to manually create a virtual test enviornment locally or pushing the code to GCP.
 
 Github actions workflow config file:
 ```python
@@ -47,7 +47,7 @@ jobs:
         make format
 ```
 
-Dockerfile
+Dockerfile - this file ensures the program can be sahred and built in a reproducible manner anywhere.
 ```docker
 
 FROM python:3.9-slim
@@ -89,7 +89,7 @@ The dataset used for the ML portion of this project was from Kaggle's Spaceship 
 
 ![image](https://user-images.githubusercontent.com/103208143/172069867-f82bcb8e-88cf-47e4-8b44-2eee4eacba90.png)
 
-The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication, then it downloads the dataset from Kaggle servers in the form of a zip file. The zip archive is unpacked and the training and test sets are loaded into python pandas dataframes. The data is then cleaned using pandas & scikit-learn module and then imported into Google BigQuery tables via google-bigquery API.
+The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication (without having to expose sensitive data in the source code), then it downloads the dataset from Kaggle servers in the form of a zip file. The zip archive is unpacked and the training and test sets are loaded into python pandas dataframes. The data is then cleaned using pandas & scikit-learn module and then imported into Google BigQuery tables via google-bigquery API.
 
 ```python
 client = bigquery.Client(project="msds343-project")
@@ -151,7 +151,7 @@ predictions = temp.copy()
 ### **Dashboard Application Deployment**
 An interactive dashboard using various visualizations and prediction results were generated using plotly dash, and can be deployed with local host or on the web via Google Cloud Build & App Engine. The dashboard allows the end user to explore the data provided and review BigQueryML model metrics, predictions, and prediction accuracy.
 
-Separate GCP projects were created as development and production environments, linked to two branches of the GitHub source code repo.
+Separate GCP projects were created as development and production environments, linked to the main and production branches, respectively, of the GitHub source code repository. This setup alows any changes to the source code to be tested and validated in a fully deployed cloud environment without affecting the existing version of the app hosted in the production environment.
 
 *Note - The app config file must specify that a "FG_1G" GCP compute instance class is used to deploy the app. Otherwise, the default instance clas will be automatically provisioned, which does not contain enough memory for the app to run properly will either errors during app deployment or cause silent errors in the background that will prevent the web app from loading properly in a browser.
 ```python
@@ -170,6 +170,8 @@ entrypoint: gunicorn -b 0.0.0.0:8080 main:server
 
 ### **Monitoring**
 
-Google Cloud Operation Suite (stackdriver) is used to monitor various performance and cost metrics of the GCP project. Additionally, it was used to setup app uptime checks that automatically alerts the app owner via email when the app is down.
+Google Cloud Operation Suite (stackdriver) is used to monitor various performance and cost metrics of the GCP project. 
+Additionally, it was used to setup app uptime checks that automatically alerts the app owner via email when the app is down.
+
 ![image](https://user-images.githubusercontent.com/103208143/172067533-cf5f6975-697b-48f7-b255-662c2b3f7fce.png)
 
