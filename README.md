@@ -19,8 +19,37 @@ The app is currently deployed at https://msds343-project.uw.r.appspot.com/
 
 ### **Source Code**
 The source code for this project was written using Google Shell Editor, JupyterLab, and stored in GitHub repo https://github.com/Akimon85/msds434-project. GitHub Actions was used to run tests using pytest and pylint automatically when new code is pushed to the repo. The contents of the repo is pushed to Google Cloud Platform (GCP) as a docker container for deployment.
+
+Github actions workflow config file:
+```python
+name: Python application test with Gtihub Actions
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+       make install
+    - name: Lint with pylint
+      run: |
+        make lint
+    - name: Test with pytest
+      run: |
+        make test
+    - name: Format code
+      run: |
+        make format
+```
+
+Dockerfile
 ```docker
-#Dockerfile
+
 FROM python:3.9-slim
 
 WORKDIR /app
@@ -56,7 +85,8 @@ kaggle
 ```
 
 ### **Data**
-The dataset used for the ML portion of this project was from Kaggle's Spaceship Titanic Competiton, in which you are tasked with predicting which passengers were transported to another dimension when "the unwary Spaceship Titanic collided with a spacetime anomaly hidden within a dust cloud". The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication, then it downloads the dataset from Kaggle servers. The data is cleaned using python pandas & scikit-learn modules and then imported into Google BigQuery tables via google-bigquery API.
+The dataset used for the ML portion of this project was from Kaggle's Spaceship Titanic Competiton, in which you are tasked with predicting which passengers were transported to another dimension when "the unwary Spaceship Titanic collided with a spacetime anomaly hidden within a dust cloud". The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication, then it downloads the dataset from Kaggle servers in the form of a zip file. The zip archive is unpacked and the training and test sets are loaded into python pandas dataframes. The data is then cleaned using pandas & scikit-learn module and then imported into Google BigQuery tables via google-bigquery API.
+
 ```python
 client = bigquery.Client(project="msds343-project")
 table_ref = client.dataset("ZenDesk").table("final")
@@ -68,23 +98,63 @@ client.load_table_from_dataframe(test, table_ref2, job_config).result()
 ```
 
 ### **ML Modeling and Prediction**
-API calls are made to BigQuery to create and training a logistic regression classification model. Then model evaluation results and test set predictions are generated via GCP BigQuery API. The predictions are formatted and saved as a csv file using python, then submitted to Kaggled for scoring via the kaggled API.
+API calls are made to BigQuery where SQL code is used to create and train a ML logistic regression classification model. Additional API calls are made to BigQuery to make predictions on the test set, and retrieve model evaluation results and predictions. The predictions are formatted and saved as a csv file using python, then submitted to Kaggled for scoring via the kaggled API. Finally, the submission score is retrived from using the kaggled API.
+
 ```python
+#model training
 query_job = client.query("""
     CREATE OR REPLACE MODEL `msds343-project.ZenDesk.final_model`
         OPTIONS(model_type='logistic_reg',labels=['Transported']) AS
     SELECT * FROM `msds343-project.ZenDesk.final`
     """)
 query_job.result()
+
+training_info = """
+SELECT
+  training_run,
+  iteration,
+  loss,
+  eval_loss,
+  duration_ms,
+  learning_rate
+FROM
+  ML.TRAINING_INFO(MODEL `msds343-project.ZenDesk.final_model`)
+ORDER BY iteration ASC
+"""
+training = client.query(training_info).to_dataframe()
+
+eval_model = """
+    SELECT *
+    FROM ML.EVALUATE(MODEL `msds343-project.ZenDesk.final_model`,
+      (
+      SELECT *
+      FROM `msds343-project.ZenDesk.final`
+      ))"""
+temp = client.query(eval_model).to_dataframe()
+eval_info = temp.copy()
+
+pred = """
+SELECT *
+FROM ML.PREDICT(MODEL `msds343-project.ZenDesk.final_model`,
+  (
+  SELECT *
+  FROM `msds343-project.ZenDesk.test`
+    ))"""
+temp = client.query(pred).to_dataframe()
+predictions = temp.copy()
+
 ```
 ### **Dashboard Application Deployment**
-An interactive dashboard using various visualizations and prediction results were generated using plotly dash, and can be deployed with local host or on the web via Google Cloud Build & App Engine. Two separate GCP projects were created as development and production environments, linked to two branches of the GitHub source code repo. 
+An interactive dashboard using various visualizations and prediction results were generated using plotly dash, and can be deployed with local host or on the web via Google Cloud Build & App Engine.Separate GCP projects were created as development and production environments, linked to two branches of the GitHub source code repo.
+
+*Note - The app config file must specify that a "FG_1G" GCP compute instance class is used to deploy the app. Otherwise, the default instance clas will be automatically provisioned, which does not contain enough memory for the app to run properly will either errors during app deployment or cause silent errors in the background that will prevent the web app from loading properly in a browser.
 ```python
 #app.yml - App Config File
 
 runtime: python39
 instance_class: F4_1G
 entrypoint: gunicorn -b 0.0.0.0:8080 main:server
+
 ```
 ![image](https://user-images.githubusercontent.com/103208143/172066428-07868c67-d14b-4ba9-af5f-acfe3716a70b.png)
 
@@ -94,6 +164,6 @@ entrypoint: gunicorn -b 0.0.0.0:8080 main:server
 
 ### **Monitoring**
 
-Google Cloud Operation Suite (stackdriver) is used to monitor various performance and cost metrics of the GCP project and setup app uptime alerts.
+Google Cloud Operation Suite (stackdriver) is used to monitor various performance and cost metrics of the GCP project. Additionally, it was used to setup app uptime checks that automatically alerts the app owner via email when the app is down.
 ![image](https://user-images.githubusercontent.com/103208143/172067533-cf5f6975-697b-48f7-b255-662c2b3f7fce.png)
 
