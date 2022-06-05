@@ -46,7 +46,7 @@ from google.cloud import bigquery
 #import shutil
 #shutil.unpack_archive('spaceship-titanic.zip', '.')
 data = pd.read_csv('train.csv')
-test = pd.read_csv('test.csv')
+#test = pd.read_csv('test.csv')
 
 
 #preprocess data
@@ -59,17 +59,19 @@ data[['Deck','Num','Side']] = data['Cabin'].str.split('/', expand=True)
 data['cabin_p'] = data.loc[~data['Cabin'].isnull()].groupby('Cabin').cumcount() + 1
 data['Total_Spending'] = data[['RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].sum(axis=1)
 data['Spent_Money'] = np.where(data['Total_Spending']>0, True, False)
+
+'''
 test[imputer_cols] = imputer.transform(test[imputer_cols])
 test["HomePlanet"].fillna('Z', inplace=True)
 test[['Deck','Num','Side']] = test['Cabin'].str.split('/', expand=True)
 test['cabin_p'] = test.loc[~test['Cabin'].isnull()].groupby('Cabin').cumcount() + 1
 test['Total_Spending'] = test[['RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].sum(axis=1)
 test['Spent_Money'] = np.where(test['Total_Spending']>0, True, False)
-
+'''
 features = ['CryoSleep','HomePlanet', 'VIP', 'Destination','Spent_Money']
 opts = [{'label':i, 'value':i} for i in features]
 
-
+'''
 #save data to BigQuery and Run ML
 client = bigquery.Client(project="msds343-project")
 table_ref = client.dataset("ZenDesk").table("final")
@@ -81,7 +83,7 @@ job_config = bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
 job_config.autodetect = True
 client.load_table_from_dataframe(data, table_ref, job_config).result()
 client.load_table_from_dataframe(test, table_ref2, job_config).result()
-
+'''
 #%load_ext google.cloud.bigquery
 '''
 query_job = client.query("""
@@ -164,10 +166,22 @@ fig.update_layout(
 )
 
 #3D Scatter Plot Of Passenger Location
+'''
 data['side_x'] = data['Side'].map({"P":"-1","S":"1"})
 data_small = data.loc[~data['Cabin'].isnull()]
 data_small['side_xx'] = np.log10(data_small['Num'].astype(int))*data_small['side_x'].astype(int)
 fig2 = px.scatter_3d(data_small, x="side_xx", y="Num", z="Deck", size="cabin_p", 
+                     color="Transported", hover_data=['Name','Cabin'],
+                     category_orders={"Deck":['G','F','E','D','C','B','A','T']},
+                     labels={"Num":"Cabin Number","side_xx":"<- Port Side             Starboard Side ->"},
+                     range_x = [-4.5,4.5],title="Passenger Location On Ship",
+                     width=1000, height=666, size_max=20,
+                    )
+'''
+data['side_x'] = data['Side'].map({"P":"-1","S":"1"})
+data = data.loc[~data['Cabin'].isnull()]
+data['side_xx'] = np.log10(data['Num'].astype(int))*data['side_x'].astype(int)
+fig2 = px.scatter_3d(data, x="side_xx", y="Num", z="Deck", size="cabin_p", 
                      color="Transported", hover_data=['Name','Cabin'],
                      category_orders={"Deck":['G','F','E','D','C','B','A','T']},
                      labels={"Num":"Cabin Number","side_xx":"<- Port Side             Starboard Side ->"},
@@ -200,7 +214,7 @@ fig2.update_layout(
 
 # In[26]:
 
-
+'''
 from plotly.subplots import make_subplots
 dff = data.copy()
 df_trans = dff[dff['Transported']==1][['CryoSleep','Transported']]
@@ -214,7 +228,7 @@ df_not['CryoSleep'] *= -1
 counts = df_not['CryoSleep_final'].tolist() + df_trans['CryoSleep'].tolist()
 end = max(counts)
 
-#Bar Chart
+
 fig3 = make_subplots(rows=1, cols=2, specs=[[{}, {}]], shared_yaxes=True, horizontal_spacing=0)
 fig3.append_trace(go.Bar(x=df_not["CryoSleep"], y=df_not["Not Transported"], orientation='h', showlegend=True, text= df_not['CryoSleep_final'], name='Not Transported'),1,1)
 fig3.append_trace(go.Bar(x=df_trans["CryoSleep"], y=df_trans["Transported"], orientation='h', showlegend=True, text= df_trans['CryoSleep'], name='Transported'),1,2)
@@ -234,7 +248,8 @@ fig3.update_layout(
     legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="center", x=0.5),
     width=1000, height=360,
 )
-
+'''
+fig3 = []
 app.layout = html.Div(
             children=[
                 html.H1(children="Titantic Spaceship"),
