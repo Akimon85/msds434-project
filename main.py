@@ -64,9 +64,9 @@ test['cabin_p'] = test.loc[~test['Cabin'].isnull()].groupby('Cabin').cumcount() 
 test['Total_Spending'] = test[['RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].sum(axis=1)
 test['Spent_Money'] = np.where(test['Total_Spending']>0, True, False)
 '''
+
 features = ['CryoSleep','HomePlanet', 'VIP', 'Destination','Spent_Money']
 opts = [{'label':i, 'value':i} for i in features]
-
 
 #save data to BigQuery and Run ML
 client = bigquery.Client(project="msds343-project")
@@ -81,7 +81,7 @@ job_config.autodetect = True
 client.load_table_from_dataframe(data, table_ref, job_config).result()
 client.load_table_from_dataframe(test, table_ref2, job_config).result()
 
-#%load_ext google.cloud.bigquery
+
 
 query_job = client.query("""
     CREATE OR REPLACE MODEL `msds343-project.ZenDesk.final_model`
@@ -228,6 +228,7 @@ fig4.update_layout(
     plot_bgcolor=colors['background'],
     paper_bgcolor=colors['background'],
     font_color=colors['text']
+)
 
 
 
