@@ -116,8 +116,7 @@ eval_model = """
       SELECT *
       FROM `msds343-project.ZenDesk.final`
       ))"""
-eval_model = client.query(eval_info).to_dataframe()
-eval_info = eval_model.copy()
+eval_info = client.query(eval_model).to_dataframe()
 
 pred = """
 SELECT *
@@ -317,8 +316,6 @@ def update_figure(X):
 #if __name__ == '__main__':
 #    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
     
-
-
 if __name__ == '__main__':
     app.run_server(debug=True, host="0.0.0.0", port=8080)
 #    app.run_server(debug=False)      
