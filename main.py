@@ -70,7 +70,7 @@ opts = [{'label':i, 'value':i} for i in features]
 
 #save data to BigQuery and Run ML
 client = bigquery.Client(project="msds343-project")
-'''
+
 table_ref = client.dataset("ZenDesk").table("final")
 table_ref2 = client.dataset("ZenDesk").table("test")
 
@@ -80,9 +80,9 @@ job_config = bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
 job_config.autodetect = True
 client.load_table_from_dataframe(data, table_ref, job_config).result()
 client.load_table_from_dataframe(test, table_ref2, job_config).result()
-'''
+
 #%load_ext google.cloud.bigquery
-'''
+
 query_job = client.query("""
     CREATE OR REPLACE MODEL `msds343-project.ZenDesk.final_model`
         OPTIONS(model_type='logistic_reg',labels=['Transported']) AS
@@ -104,7 +104,7 @@ FROM
 ORDER BY iteration ASC
 """
 training = client.query(training_info).to_dataframe()
-'''
+
 eval_model = """
     SELECT *
     FROM ML.EVALUATE(MODEL `msds343-project.ZenDesk.final_model`,
@@ -128,13 +128,13 @@ lst = [temp]
 del temp
 del lst
 
-'''
+
 score = [d[0].get('prob') for d in predictions.predicted_Transported_probs]
 
-sub = predictions[['PassengerId','predicted_Transported']].rename(
+pred = predictions[['PassengerId','predicted_Transported']].rename(
     columns={'predicted_Transported':'Transported'})
-#sub.to_csv('submission.csv',index=False)
-'''
+#pred.to_csv('submission.csv',index=False)
+
 
 #submit predictions to kaggle
 #get_ipython().system('kaggle competitions submit -c spaceship-titanic -f submission.csv -m Sub1')
@@ -157,7 +157,7 @@ fig = px.histogram(data_frame = data,
                    color="Transported",
                    marginal="box",
                    nbins= 100,
-                   width=1000, height=360,
+                   width=1000, height=250,
                 )
 fig.update_layout(
     title = "Distribution of Passenger Age",
@@ -188,7 +188,7 @@ fig2 = px.scatter_3d(data, x="side_xx", y="Num", z="Deck", size="cabin_p",
                      category_orders={"Deck":['G','F','E','D','C','B','A','T']},
                      labels={"Num":"Cabin Number","side_xx":"<- Port Side             Starboard Side ->"},
                      range_x = [-4.5,4.5],title="Passenger Location On Ship",
-                     width=1000, height=666, size_max=20,
+                     width=1000, height=500, size_max=20,
                     )
 fig2.update_layout(
     title_x = 0.5,
@@ -213,8 +213,20 @@ fig2.update_layout(
             zerolinecolor="white",),),
 )
 
+fig4 = px.histogram(data_frame = pred, 
+                   x="predicted_Transported_probs",
+                   color="predicted_Transported",
+                   marginal="box",
+                   nbins= 100,
+                   width=1000, height=300,
+                )
+fig4.update_layout(
+    title = "Predictions & Prediction Probabilities",
+    title_x = 0.5,
+    plot_bgcolor=colors['background'],
+    paper_bgcolor=colors['background'],
+    font_color=colors['text']
 
-# In[26]:
 
 
 '''
@@ -256,7 +268,6 @@ app.layout = html.Div(
             children=[
                 html.H1(children="Titantic Spaceship"),
                 html.P(children="Akira Noda - MSDS434 Project - Interdimensional Transportation Prediction"),
-                dcc.Graph(id='bar',figure=fig3),
                 html.P([
                     html.Label("Choose a feature"),
                     dcc.Dropdown(id = 'opt',
@@ -264,16 +275,18 @@ app.layout = html.Div(
                                  value = opts[0])
                     ], style = {'width': '400px',
                                 'fontSize' : '20px',
-                                'padding-left' : '100px',
+                                'padding-left' : '50px',
                                 'display': 'inline-block'}),
+                dcc.Graph(id='bar',figure=fig3),
                 html.Div([
                     dcc.Graph(id="histogram", figure=fig),
                     html.Br(),
                     dcc.Graph(id="3dplot", figure=fig2)
                 ]),
-                html.P(children="BigQueryML - Classification Model Evaluation"),
+                html.P(children=[html.H3("BigQueryML - Logistic Regression Classification Model Evaluation")]),
                 dash_table.DataTable(eval_info.to_dict('records'), [{"name": i, "id": i} for i in eval_info.columns]),
-                html.P(children=[html.H2(kaggle_score)])
+                dcc.Graph(id='pred_host',figure=fig4),
+                html.P(children=[html.H3(kaggle_score)])
             ])
    
 @app.callback(
@@ -310,7 +323,7 @@ def update_figure(X):
             hovermode="y unified", 
             xaxis_title=" ", yaxis_title=X,
             legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="center", x=0.5),
-            width=1000, height=360)
+            width=1000, height=300)
         fig = go.Figure(data=fig3a)
         return fig
 
