@@ -131,10 +131,12 @@ del lst
 
 score = [d[0].get('prob') for d in predictions.predicted_Transported_probs]
 
-pred = predictions[['PassengerId','predicted_Transported']].rename(
-    columns={'predicted_Transported':'Transported'})
+#pred = predictions[['PassengerId','predicted_Transported']].rename(
+#    columns={'predicted_Transported':'Transported'})
 #pred.to_csv('submission.csv',index=False)
-
+pred_df=pd.DataFrame()
+pred_df['predicted_Transported'] = predictions['predicted_Transported']
+pred_df['probability_Transported'] = score
 
 #submit predictions to kaggle
 #get_ipython().system('kaggle competitions submit -c spaceship-titanic -f submission.csv -m Sub1')
@@ -213,8 +215,8 @@ fig2.update_layout(
             zerolinecolor="white",),),
 )
 
-fig4 = px.histogram(data_frame = pred, 
-                   x="predicted_Transported_probs",
+fig4 = px.histogram(data_frame = pred_df, 
+                   x="probability_Transported",
                    color="predicted_Transported",
                    marginal="box",
                    nbins= 100,
