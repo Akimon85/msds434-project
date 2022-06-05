@@ -10,7 +10,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 
 import plotly.graph_objects as go
-
+from plotly.subplots import make_subplots
 from google.cloud import secretmanager
 from sklearn.impute import SimpleImputer
 #from sklearn.preprocessing import LabelEncoder
@@ -216,8 +216,8 @@ fig2.update_layout(
 
 # In[26]:
 
+
 '''
-from plotly.subplots import make_subplots
 dff = data.copy()
 df_trans = dff[dff['Transported']==1][['CryoSleep','Transported']]
 df_not = dff[dff['Transported']==0][['CryoSleep', 'Transported']].rename(columns={'Transported':'Not Transported'})
