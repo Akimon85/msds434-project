@@ -91,6 +91,8 @@ The dataset used for the ML portion of this project was from Kaggle's Spaceship 
 
 The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication (without having to expose sensitive data in the source code), then it downloads the dataset from Kaggle servers in the form of a zip file. The zip archive is unpacked and the training and test sets are loaded into python pandas dataframes. The data is then cleaned using pandas & scikit-learn module and then imported into Google BigQuery tables via google-bigquery API.
 
+Storing the data model in BigQuery has the advantagous of scalability, flexibility, and availability. In addition, making use of BigQuery's ML capabilities also saves time and resources needed to retrieve the data from storage and transferring to local or another cloud environment to train, test, and use ML models.
+
 ```python
 client = bigquery.Client(project="msds343-project")
 table_ref = client.dataset("ZenDesk").table("final")
