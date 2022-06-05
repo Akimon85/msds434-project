@@ -6,7 +6,7 @@ This project was created to demonstrate proficiency with creating and deploying 
 
 The application does the following:
 
-1.Retrieve unpack files from a Kaggle competition dataset from kaggle servers via kaggle api.
+1.Retrieve unpack files from a Kaggle competition dataset from kaggle servers via kaggle api.*
 
 2.Perform data cleaning and preprocessing on training and testing datasets in python.
 
@@ -18,11 +18,11 @@ The application does the following:
 
 6.Retrieve model evaluation metrics and predictions from google BigQuery.
 
-7.Retrieve kaggle API key from GCP Secrets API.
+7.Retrieve kaggle API key from GCP Secrets API.*
 
-8.Submit predictions to kaggle competition and retrieve submission score via kaggle api.
+8.Submit predictions to kaggle competition and retrieve submission score via kaggle api.*
 
-9.Generate an interactive dashboard showing using plotly.dash and deploy app to the web.
+9.Generate an interactive dashboard application using plotly.dash and deploy to the web via Google App Engine.
 
 ![Slide1](https://user-images.githubusercontent.com/103208143/172032753-2421dbfd-ecac-4a04-aba4-522c55bd4ce6.JPG)
 
