@@ -1,22 +1,19 @@
 import pandas as pd
 import numpy as np
 import os
-#from flask import Flask, request, jsonify
 import dash
 from dash import Dash, dcc, html, dash_table
 from dash.dependencies import Input, Output, State
-#import dash_core_components as dcc
-#import dash_html_components as html
+
 import dash_bootstrap_components as dbc
 #import kaggle
 import plotly.express as px
-#import opendatasets as od
+
 import plotly.graph_objects as go
-#import json, urllib
+
 from google.cloud import secretmanager
 from sklearn.impute import SimpleImputer
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import LabelEncoder
+#from sklearn.preprocessing import LabelEncoder
 #from kaggle.api.kaggle_api_extended import KaggleApi
 #print('\n'.join(f'{m.__name__}=={m.__version__}' for m in globals().values() if getattr(m, '__version__', None)))
 
