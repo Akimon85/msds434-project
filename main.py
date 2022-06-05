@@ -261,7 +261,7 @@ app.layout = html.Div(
                     html.Label("Choose a feature"),
                     dcc.Dropdown(id = 'opt',
                                  options = opts,
-                                 value = opts[0][value])
+                                 value = opts[0])
                     ], style = {'width': '400px',
                                 'fontSize' : '20px',
                                 'padding-left' : '100px',
