@@ -21,7 +21,7 @@ from sklearn.preprocessing import LabelEncoder
 #from kaggle.api.kaggle_api_extended import KaggleApi
 #print('\n'.join(f'{m.__name__}=={m.__version__}' for m in globals().values() if getattr(m, '__version__', None)))
 
-#from google.oauth2 import service_account
+from google.oauth2 import service_account
 from google.cloud import bigquery
 #key_path = "msds343-project-03476f47763b.json"
 #credentials = service_account.Credentials.from_service_account_file(
