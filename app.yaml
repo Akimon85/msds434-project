@@ -1,6 +1,7 @@
 #service: default
 #runtime: custom
 runtime: python39
+instance_class: F4_1G
 #env: flex
 #entrypoint: gunicorn -b :$PORT main:app
 entrypoint: gunicorn -b 0.0.0.0:8080 main:server
