@@ -54,7 +54,7 @@ query_job = client.query("""
 query_job.result()
 ```
 ### **Dashboard Application Deployment**
-An interactive dashboard using various visualizations and prediction results were generated using plotly dash, and can be deployed with local host or on the web via Google App Engine.
+An interactive dashboard using various visualizations and prediction results were generated using plotly dash, and can be deployed with local host or on the web via Google Cloud Build & App Engine. Two separate GCP projects were created as development and production environments, linked to two branches of the GitHub source code repo. 
 ```python
 #app.yml - App Config File
 
