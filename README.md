@@ -6,11 +6,11 @@ This project was created to demonstrate proficiency with creating and deploying 
 
 The application does the following:
 
-1.Retrieve unpack files from a Kaggle competition dataset from kaggle servers via kaggle api.*
+1.Retrieve a Kaggle competition dataset via kaggle api.*
 
-2.Perform data cleaning and preprocessing on training and testing datasets in python.
+2.Clean and preprocess datasets in python.
 
-3.Save training and testing datasets to google BigQuery tables via google.bigquery api.
+3.Import training and testing datasets to google BigQuery tables via google-bigquery api.
 
 4.Trains and evaluate a classification model using google BigQueryML.
 
