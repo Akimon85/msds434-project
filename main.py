@@ -128,7 +128,7 @@ score = [d[0].get('prob') for d in predictions.predicted_Transported_probs]
 
 sub = predictions[['PassengerId','predicted_Transported']].rename(
     columns={'predicted_Transported':'Transported'})
-sub.to_csv('submission.csv',index=False)
+#sub.to_csv('submission.csv',index=False)
 
 
 #submit predictions to kaggle
