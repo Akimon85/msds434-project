@@ -85,7 +85,11 @@ kaggle
 ```
 
 ### **Data**
-The dataset used for the ML portion of this project was from Kaggle's Spaceship Titanic Competiton, in which you are tasked with predicting which passengers were transported to another dimension when "the unwary Spaceship Titanic collided with a spacetime anomaly hidden within a dust cloud". The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication, then it downloads the dataset from Kaggle servers in the form of a zip file. The zip archive is unpacked and the training and test sets are loaded into python pandas dataframes. The data is then cleaned using pandas & scikit-learn module and then imported into Google BigQuery tables via google-bigquery API.
+The dataset used for the ML portion of this project was from Kaggle's Spaceship Titanic Competiton, in which you are tasked with predicting which passengers were transported to another dimension when "the unwary Spaceship Titanic collided with a spacetime anomaly hidden within a dust cloud". 
+
+![image](https://user-images.githubusercontent.com/103208143/172069867-f82bcb8e-88cf-47e4-8b44-2eee4eacba90.png)
+
+The python backend main.py script retrieves a Kaggle API token store in Google Secret Manager and supplies it to the Kaggle API for authentication, then it downloads the dataset from Kaggle servers in the form of a zip file. The zip archive is unpacked and the training and test sets are loaded into python pandas dataframes. The data is then cleaned using pandas & scikit-learn module and then imported into Google BigQuery tables via google-bigquery API.
 
 ```python
 client = bigquery.Client(project="msds343-project")
